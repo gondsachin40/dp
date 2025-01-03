@@ -11,10 +11,14 @@ analysis of time complexity :
 o(n) to iterate
 k = size of element picked from left and right
 kmax = 10
-o(k * 2 ^ n) to find subset 
+to find subset  if we store in some data structure
+{
+o(k * 2 ^ n)  
 o(10 * 2 ^ 10)
 o(10240)
-10 ^ 4 iteration which is O(10^4) < O(n)
+}
+but here we are using that only so (2 ^ 10)
+1024 iteration which is O(10^3) < O(n)
 
 so the overall time complexity become O(n)
 n -> size of array
