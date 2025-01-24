@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+vector<bool> vis;
+int ans = 0;
+void dfs(int node , int w , vector<pair<int,int>> adj[] , int cnt)
+{
+    // cout<<node<<" ";
+    vis[node] = true;
+    ans = max(ans , cnt);
+    for(auto [v , c] : adj[node])
+    {
+        if(vis[v] == false)
+        {
+            dfs(v , c , adj,cnt + c);
+        }
+    }
+}
+int main() {
+    int n;
+    cin >> n;
+    vector<pair<int,int>> adj[n];
+    vis.resize(n , false);
+    for(int i = 0;i<n - 1;i++)
+    {
+        int u , v , c;
+        cin >> u >> v >> c;
+        adj[u].push_back({v , c});
+        adj[v].push_back({u , c});
+    }
+    dfs(0 , 0 , adj ,0);
+    printf("%d",ans);
+}
