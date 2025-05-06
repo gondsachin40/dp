@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+#define L(i, j, k) for(int i = (j); i <= (k); ++i)
+#define R(i, j, k) for(int i = (j); i >= (k); --i) 
+#define vi vector < int >
+#define sz(a) ((int) (a).size())
+#define ll long long 
+#define ull unsigned long long
+#define me(a, x) memset(a, x, sizeof(a)) 
+#define pb emplace_back
+#define all(a) (a).begin(),(a).end()
+#define print(a) for(auto x : a) cout << x << " " ; cout<< endl;
+#define ld __float128
+using namespace std;
+const int N = 1e6 + 7, mod = 1e9 + 7;
+
+void solve(){
+    int n;
+    cin >> n;
+    vector<string> a(n);
+    L(i , 0 , n -  1)
+    cin >> a[i];
+    vector<vector<ll>> dp(n, vector<ll>(n , 0));
+    L(i , 0 , n - 1){
+        if(a[i][0] == '*')break;
+        dp[i][0] = 1;
+    }
+     L(i , 0 , n - 1){
+        if(a[0][i] == '*')break;
+        dp[0][i] = 1;
+    }
+    L(i , 1 , n - 1){
+        L(j , 1 , n - 1){
+            if(a[i][j] == '*')continue;
+            dp[i][j] = (dp[i - 1][j] % mod + dp[i][j - 1] % mod)%mod;
+        }
+    }
+    cout<<dp[n - 1][n - 1] % mod<<endl;
+}
+int main(){
+ ios_base::sync_with_stdio(false),cin.tie(0);
+ cout.tie(0);
+ int t = 1;
+ // cin >> t;
+ while(t--)
+ solve();
+ return 0;
+}
