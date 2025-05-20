@@ -1,0 +1,86 @@
+//used prime factorization
+//problem link https://atcoder.jp/contests/abc342/tasks/abc342_d
+
+
+
+
+#include<bits/stdc++.h>
+#define L(i, j, k) for(int i = (j); i <= (k); ++i)
+#define R(i, j, k) for(int i = (j); i >= (k); --i) 
+#define vi vector < int >
+#define sz(a) ((int) (a).size())
+#define ll long long 
+#define ull unsigned long long
+#define me(a, x) memset(a, x, sizeof(a)) 
+#define pb emplace_back
+#define all(a) (a).begin(),(a).end()
+#define print(a) for(auto x : a) cout << x << " " ; cout<< endl;
+#define ld __float128
+using namespace std;
+const int N = 1e6 + 7, mod = 1e9 + 7;
+vector<int> primes;
+void seive(){
+    vector<int> has(N , 0);
+    L(i , 2 , N - 1){
+        if(has[i] == 0){
+        for(int j = i + i;j < N;j += i){
+            has[j] = 1;
+            }
+        }
+    }
+    L(i , 2 , N - 1){
+        if(has[i] == 0){
+            primes.push_back(i);
+        }
+    }
+    // print(primes);
+}
+map<int,int> get(int x){
+    int i = 0;
+    map<int,int> mp;
+    while(primes[i] <= x){
+        int cnt = 0;
+        while(x % primes[i] == 0){
+            x /= primes[i];
+            cnt++;
+        }
+        cnt %= 2;
+        if(cnt > 0){
+            mp[primes[i]] += cnt;
+        }  
+        i++;
+    }
+    return mp;
+}
+void solve(){
+	int n;
+	cin >> n;
+	vi a(n);
+	L(i , 0 , n - 1)  cin >> a[i];
+    seive();
+	map<map<int,int> , int> mp;
+	ll cnt = 0;
+	int zero = 0;
+	L(i , 0 , n - 1){
+	    if(a[i] == 0){
+	        zero++;
+	    }else{
+	        map<int,int> ans = get(a[i]);
+            cnt += mp[ans];
+            mp[ans]++;
+            
+	    }
+	}
+    cnt += 1LL * zero * (n - zero);
+    cnt += 1LL * zero * (zero - 1) / 2;
+    cout<<cnt<<endl;
+}
+int main(){
+ ios_base::sync_with_stdio(false),cin.tie(0);
+ cout.tie(0);
+ int t = 1;
+ // cin >> t;
+ while(t--)
+ solve();
+ return 0;
+}
