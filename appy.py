@@ -18,7 +18,7 @@ class User(db.Model):
 
 class Exam(db.Model):
     name = db.Column(db.String(50) , nullable = False)
-    ExamId = db.column(db.Integer ,primary_key = True)
+    ExamId = db.Column(db.Integer ,primary_key = True)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
@@ -93,13 +93,40 @@ def signup():
     db.session.commit()
     return "hello"
 
-@app.route("/create/Exam" , methods = ["POST"])
+@app.route("/create/exam" , methods = ["POST"])
 @jwt_required()
 def createExam():
     data = request.get_json()
     if not data or "name" not in data:
         return jsonify({"error" : "empty field"})
 
+
+    user_id = get_jwt_identity()
+    
+    exam = Exam(name = data["name"] , user_id = user_id)
+    db.session.add(exam)
+    db.session.commit()
+    return "success"
+
+@app.route("/getallexams")
+def getallexams():
+    Exams = Exam.query.all()
+    result = []
+    for exam in Exams:
+        result.append({"name" : exam.name , "id" : exam.ExamId})
+    
+    return jsonify(result),200
+
+@app.route("/getmyexams")
+@jwt_required()
+def getmyexams():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    Exams = user.exams
+    result = []
+    for exam in Exams:
+        result.append({"name" : exam.name , "id" : exam.ExamId})
+    return jsonify(result),200
 
 #create exam by that admin exam must be unique by only same name exam can be present the foreign key of exam is user
 
