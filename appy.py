@@ -68,10 +68,10 @@ def login():
     token = create_access_token(identity=str(user.id))
     print(token)
 
-    
-    return jsonify({
-        "msg" : "login successful"
-        ,"access_token" : token}) , 200
+    return token
+    # return jsonify({
+    #     "msg" : "login successful"
+    #     ,"access_token" : token}) , 200
     
 
 @app.route("/signup" , methods = ["POST"])
@@ -93,6 +93,7 @@ def signup():
     db.session.commit()
     return "hello"
 
+#create exam by that admin exam must be unique by only same name exam can be present the foreign key of exam is user
 @app.route("/create/exam" , methods = ["POST"])
 @jwt_required()
 def createExam():
@@ -128,7 +129,6 @@ def getmyexams():
         result.append({"name" : exam.name , "id" : exam.ExamId})
     return jsonify(result),200
 
-#create exam by that admin exam must be unique by only same name exam can be present the foreign key of exam is user
 
 
 
