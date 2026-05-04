@@ -14,6 +14,81 @@
 using namespace std;
 vector<vector<int>>sparse_tree;
 
+
+
+
+// class sparseTreeClass{
+//     public:
+//     vector<vector<int>>sparseTree;
+//     vector<int>v;
+//     bool isMin;
+//     int n,k;
+//     sparseTreeClass (int n,vector<int>&v,bool isMin){
+//         this->k = log2(n);
+//         this->n = n;
+//         this->v = v;
+//         (this.sparseTree).resize(n,vector<int>(k+1,0));
+//         this->isMin = isMin;
+//         buildSparseTree();
+//     }
+//     void buildMinSparseTree(){
+//         for (int i = 0;i < n;i++){
+//             sparseTree[i][0] = v[i];
+//         }
+//         for (int j = 1;j <= k;j++){
+//             for (int i = 0;i + (1 << j ) -1< n;i++){
+//                 int part1 = sparseTree[i][j-1],
+//                 part2 = sparseTree[i + (1 << (j - 1) )][j-1];
+//                 sparseTree[i][j] = min(part1,part2);
+//             }
+//         }
+//     }
+//     void buildMaxSparseTree(){
+//         for (int i = 0;i < n;i++){
+//             sparseTree[i][0] = v[i];
+//         }
+        
+//         for (int j = 1;j <= k;j++){
+//             for (int i = 0;i + (1 << j) - 1 < n;i++){
+//                 int part1 = sparseTree[i][j-1],
+//                 part2 = sparseTree[i + (1 << (j-1))][j-1];
+//                 //par1 and part 2 overlap each other for example 7 will be divied into 0 to 4 and 4 to 7 inclusive 
+//                 sparseTree[i][j] = max(part1,part2);
+//             }
+//         }
+//     }
+//     void buildSparseTree(){
+//         if (isMin)
+//             buildMinSparseTree();
+//         else 
+//             buildMaxSparseTree();
+//     }
+//     int queryMin(int &L ,int &R){
+//         int j = log2(R - L + 1);
+//         int part1 = sparseTree[L][j],
+//         part2 = sparseTree[R - ( 1 << j) + 1][j];// we add 1 here because R is inclusive
+//        return min(part1,part2); 
+//     }
+//     int queryMax(int &L,int &R) {
+//         int j = log2(R-L + 1);// maximum power of 2 that could be reached before size of subarray
+//         int part1 = sparseTree[L][j],
+//         part2 = sparseTree[R - (1 << j) + 1][j];
+//         return max(part1,part2);
+//     }
+//     int query(int &L,int &R){
+//         if (isMin)return queryMin(L,R);
+//         else return queryMax(L,R);
+//     }
+// };
+
+
+
+
+
+
+
+
+
 int n,k;
 
 void build_tree(vector<int>&v,vector<vector<int>>&sparse_tree){
