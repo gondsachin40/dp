@@ -122,6 +122,8 @@ int query(vector<vector<int>> & sparse_tree,int L,int R){
 int main(){
  ios_base::sync_with_stdio(false),cin.tie(0);
  cout.tie(0);
+        //take input
+        
  vector<int>v = {7 ,2 ,3 ,0 ,5 ,10 ,3 ,12 ,18};
  n = v.size();
  k = log2(n);
